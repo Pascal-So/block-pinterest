@@ -23,7 +23,7 @@ function newQueryString(query){
                     .filter(function(e){return !e.match(/^-site:/);})
                     .join(' ');
 
-    var blocked = getBlockedSites(query);
+    var alreadyBlocked = getBlockedSites(query);
 
     blockSites = [
         'pinterest.com',
@@ -32,9 +32,17 @@ function newQueryString(query){
         'pinterest.ie',
         'pinterest.de',
         'pinterest.ch',
+        'pinterest.dk',
+        'pinterest.ca',
+        'pinterest.fr',
+        'pinterest.se',
+        'pinterest.jp',
+        'pinterest.cl',
+        'pinterest.es',
+        'pinterest.co.kr',
     ];
 
-    var allBlocked = sort_unique(blocked.concat(blockSites));
+    var allBlocked = sort_unique(alreadyBlocked.concat(blockSites));
 
     return rawQuery + ' ' + allBlocked.map(function(e){return '-site:' + e;}).join(' ');
 }
@@ -43,4 +51,7 @@ var searchfield = document.querySelector('input#lst-ib');
 
 if(searchfield){
     searchfield.value = newQueryString(searchfield.value);
+
+    searchfield.focus();
 }
+
